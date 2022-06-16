@@ -149,6 +149,14 @@ li {
   width: 80%;
 }
 
+#uploadUnsuccessful {
+    display: none;
+}
+
+#waitingToUpload {
+    display: none;
+}
+
 #thanksReset {
   display: none;
 }

@@ -38,7 +38,8 @@ let input // MediaStreamAudioSourceNode we'll be recording
 let ourBlob // Blob data from recording to display and upload
 let fileName // Name to call the recording
 let startTime
-let ellipses, ellipsesTimeoutID
+let ellipses = ""
+let ellipsesTimeoutID
 
 // shim for AudioContext when it's not avb.
 const AudioContext = window.AudioContext || window.webkitAudioContext
@@ -53,7 +54,7 @@ const elapsedTime = document.getElementById( "elapsedTime" )
 const termsPopup = document.getElementById( "termsPopup" )
 const termsLanguage = document.getElementById( "termsLanguage")
 const thanksReset = document.getElementById( "thanksReset")
-const uploading = document.getElementById( "uploading")
+const waitingToUpload = document.getElementById( "waitingToUpload")
 const waiting = document.getElementById( "waiting")
 const uploadUnsuccessful = document.getElementById( "uploadUnsuccessful")
 const agree = document.getElementById( "agree" )
@@ -247,7 +248,7 @@ function resetTerms() {
 function saveRecordingLocally(filename, blob) {
 
 	// create a URL for tracking down the file later?
-	let url = URL.createObjectURL( blob )
+	// let url = URL.createObjectURL( blob )
 
 	// // also save to local storage using idb keyval
 	// var saveObj = {
@@ -258,14 +259,20 @@ function saveRecordingLocally(filename, blob) {
 	// 	.then( () => console.log( "set", filename + ".wav", saveObj ) )
 }
 
-function uploadRecording() {
+async function uploadRecording() {
 
 	if ( agree.checked == false ) {
 		alert( "Please accept the terms and conditions before confirming." )
 		return
 	}
 
+	// Tell the user we are uploading their recording, waiting...
+	waitingEllipses()
+	waitingToUpload.style.display = "block"
+
+	// Save the recording locally before trying to upload
 	saveRecordingLocally(fileName, ourBlob)
+	// TO DO: Delete local recording if user so chooses...
 
 	let name = document.getElementById( 'name' ).value
 	name = name ? name : "blank" // hacks on hacks on hacks on...
@@ -283,7 +290,7 @@ function uploadRecording() {
 	fd.append( 'file', ourBlob )
 
 	// fetch( 'http://127.0.0.1:3000/upload', { // for development
-	async upload() {
+	async function upload() {
 		return fetch( '/upload', {
 			method: 'post',
 			// mode: 'no-cors', // when not working locally
@@ -300,11 +307,10 @@ function uploadRecording() {
 
 	const success = async () => {
 
-		waitingEllipses()
-		uploading.style.display = "block"
-
 		await upload()
 		.then( res => {
+
+			console.log(res)
 
 			if(!res.ok) { // if the upload is unsuccessful
 
@@ -315,6 +321,7 @@ function uploadRecording() {
 				clearTimeout(ellipsesTimeoutID)
 				console.log(`cleared timeout: ${ellipsesTimeoutID}`)
 
+				waitingToUpload.style.display = "none"
 				termsLanguage.style.display = "none"
 				thanksReset.style.display = "block"
 				setTimeout(redoRecording, 10000)
@@ -322,6 +329,8 @@ function uploadRecording() {
 			}
 		})
 	}
+
+	success()
 
 }
 
