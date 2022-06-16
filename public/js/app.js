@@ -269,6 +269,8 @@ async function uploadRecording() {
 	// Tell the user we are uploading their recording, waiting...
 	waitingEllipses()
 	waitingToUpload.style.display = "block"
+	termsLanguage.style.display = "none"
+	thanksReset.style.display = "none"
 
 	// Save the recording locally before trying to upload
 	saveRecordingLocally(fileName, ourBlob)
