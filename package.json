@@ -1,0 +1,26 @@
+{
+  "name": "simple-recorderjs-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/addpipe/simple-recorderjs-demo.git"
+  },
+  "author": "Billy Bennett <bennett.billy@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "idb-keyval": "^6.1.0",
+    "multer": "^1.4.5-lts.1",
+    "serve-index": "^1.9.1"
+  },
+  "scripts": {
+    "start": "http-server -c-1 -o"
+  },
+  "description": "A simple HTML5/JS demo that uses [Recorder.js](https://github.com/mattdiamond/Recorderjs) to record audio as wav and pause/resume the recording process.",
+  "bugs": {
+    "url": "https://github.com/addpipe/simple-recorderjs-demo/issues"
+  },
+  "homepage": "https://github.com/addpipe/simple-recorderjs-demo#readme"
+}
