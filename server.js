@@ -4,7 +4,10 @@ const bodyParser = require('body-parser')
 const serveIndex = require('serve-index')
 const express = require('express')
 const app = express()
-const port = 3000
+
+// Load the port from our .env file
+require('dotenv').config();
+const port = process.env.PORT
 
 // Multer stores uploaded files to disk
 const multer = require('multer')

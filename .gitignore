@@ -3,3 +3,4 @@ node_modules/*
 upload/*
 .DS_Store
 public/node_modules/*
+.env
