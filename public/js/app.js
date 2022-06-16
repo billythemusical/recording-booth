@@ -38,6 +38,7 @@ let input // MediaStreamAudioSourceNode we'll be recording
 let ourBlob // Blob data from recording to display and upload
 let fileName // Name to call the recording
 let startTime
+let ellipses, ellipsesTimeoutID
 
 // shim for AudioContext when it's not avb.
 const AudioContext = window.AudioContext || window.webkitAudioContext
@@ -52,6 +53,9 @@ const elapsedTime = document.getElementById( "elapsedTime" )
 const termsPopup = document.getElementById( "termsPopup" )
 const termsLanguage = document.getElementById( "termsLanguage")
 const thanksReset = document.getElementById( "thanksReset")
+const uploading = document.getElementById( "uploading")
+const waiting = document.getElementById( "waiting")
+const uploadUnsuccessful = document.getElementById( "uploadUnsuccessful")
 const agree = document.getElementById( "agree" )
 const confirmButton = document.getElementById( "confirmButton" )
 const cancelButton = document.getElementById( "cancelButton" )
@@ -68,6 +72,7 @@ close.addEventListener( "click", cancelSubmission )
 
 // Must be checked to Submit recording
 agree.addEventListener( 'change', toggleCheck )
+
 
 function startRecording() {
 	console.log( "recordButton clicked" )
@@ -277,27 +282,56 @@ function uploadRecording() {
 	fd.append( 'fileName', fileName + ".wav" )
 	fd.append( 'file', ourBlob )
 
-	fetch( 'http://127.0.0.1:3000/upload', {
+	// fetch( 'http://127.0.0.1:3000/upload', { // for development
+	async upload() {
+		return fetch( '/upload', {
 			method: 'post',
-			mode: 'no-cors',
+			// mode: 'no-cors', // when not working locally
 			body: fd,
-		} )
-		.then( res => {
-			console.log( res )
-			termsLanguage.style.display = "none"
-			thanksReset.style.display = "block"
-			setTimeout(redoRecording, 10000)
 		})
-		.catch( error => ( 'Error occured', error ) )
+		.then( res => {
+			if (!res.ok) {
+				throw new ERROR(`HTTP Upload Error: ${response.status}`)
+			}
+			return res
+		})
+		.catch( error => console.error(`Fetch problem: ${error.message}`))
+	}
+
+	const success = async () => {
+
+		waitingEllipses()
+		uploading.style.display = "block"
+
+		await upload()
+		.then( res => {
+
+			if(!res.ok) { // if the upload is unsuccessful
+
+				uploadUnsuccessful.style.display = "block"
+
+			} else { // if the upload was successful
+
+				clearTimeout(ellipsesTimeoutID)
+				console.log(`cleared timeout: ${ellipsesTimeoutID}`)
+
+				termsLanguage.style.display = "none"
+				thanksReset.style.display = "block"
+				setTimeout(redoRecording, 10000)
+
+			}
+		})
+	}
+
 }
 
 function toggleCheck() {
-	console.log( "agree element\n", agree )
+	// console.log( "agree element\n", agree )
 	if ( agree.checked == true ) {
-		console.log( 'checked agree' );
+		// console.log( 'checked agree' );
 		confirmButton.disabled = false
 	} else {
-		console.log( 'does not agree' );
+		// console.log( 'does not agree' );
 		confirmButton.disabled = true
 	}
 }
@@ -317,25 +351,34 @@ function confirmRedo() {
 function redoRecording() {
 
 	// Just reload the page, why not?
-	location.reload()
+	// location.reload()
 
 	// //clear the recording and reset the buttons
-	// recordButton.disabled = false
-	// stopButton.disabled = true
-	// submitButton.disabled = true
-	// redoButton.disabled = true
+	recordButton.disabled = false
+	stopButton.disabled = true
+	submitButton.disabled = true
+	redoButton.disabled = true
 	//
-	// // Stop the recording if you haven't already
-	// if ( rec.recording ) rec.stop()
-	// // Reset the recording - we'll create a new one later
-	// rec = null
-	// // Delete the saved recording elements
-	// recordingsList.innerHTML = ""
-	// // Hide the termsPopup if it is shown
-	// termsPopup.style.display = "none"
-	// // Reset the elapsed time counter
-	// elapsedTime.innerHTML = "0:00"
+	// Stop the recording if you haven't already
+	if ( rec.recording ) rec.stop()
+	// Reset the recording - we'll create a new one later
+	rec = null
+	// Delete the saved recording elements
+	recordingsList.innerHTML = ""
+	// Hide the termsPopup if it is shown
+	termsPopup.style.display = "none"
+	// Reset the elapsed time counter
+	elapsedTime.innerHTML = "0:00"
+	// Hide the latest message
+	uploadUnsuccessful.style.display = "none"
 
+}
+
+function waitingEllipses() {
+	if (ellipses.length > 3) ellipses = ""
+	ellipses += "."
+	waiting.innerHTML = ellipses
+	ellipsesTimeoutID = setTimeout(waitingEllipses, 500)
 }
 
 
