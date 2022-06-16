@@ -3,11 +3,20 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const serveIndex = require('serve-index')
 const express = require('express')
+const https = require('https')
 const app = express()
 
 // Load the port from our .env file
 require('dotenv').config();
 const port = process.env.PORT
+
+// Get the certs for HTTPS
+const key = fs.readFileSync(__dirname + '/../certs/selfsigned.key');
+const cert = fs.readFileSync(__dirname + '/../certs/selfsigned.crt');
+const options = {
+  key: key,
+  cert: cert
+};
 
 // Multer stores uploaded files to disk
 const multer = require('multer')
@@ -58,6 +67,9 @@ app.post('/upload', upload.single('file'), (req, res) => {
 	})
 })
 
-app.listen(port, function() {
+
+const server = https.createSever(options, app)
+
+server.listen(port, function() {
 	console.log('We are listening on port ' + port)
 })
