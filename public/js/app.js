@@ -307,15 +307,14 @@ async function uploadRecording() {
 		.catch( error => console.error(`Fetch problem: ${error.message}`))
 	}
 
-	const success = async () => {
+	const success = await Promise.all([ upload(), sleep(5000) ])
+		.then( promises => {
 
-		await upload()
-		.then( res => {
+			const uploadResponse= promises[0]
 
-			console.log(res)
+			if(!uploadResponse.ok) { // if the upload is unsuccessful
 
-			if(!res.ok) { // if the upload is unsuccessful
-
+				waitingToUpload.style.display = "none"
 				uploadUnsuccessful.style.display = "block"
 
 			} else { // if the upload was successful
@@ -330,9 +329,7 @@ async function uploadRecording() {
 
 			}
 		})
-	}
-
-	success()
+		.catch(error => console.log('Error handling upload:', error))
 
 }
 
@@ -386,11 +383,14 @@ function redoRecording() {
 }
 
 function waitingEllipses() {
-	if (ellipses.length > 3) ellipses = ""
+	if (ellipses.length >= 3) ellipses = ""
 	ellipses += "."
 	waiting.innerHTML = ellipses
 	ellipsesTimeoutID = setTimeout(waitingEllipses, 500)
 }
+
+// A sleep function
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 
 // Hide the terms if you click anywhere off of it.

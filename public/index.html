@@ -11,24 +11,24 @@
 </head>
 
 <body>
-  <svg id="logo" height="50">
-    <image href="images/incorrigibles.svg"/>
+  <svg id="logo" width="100%" height="50px">
+    <image width="33%" href="images/incorrigibles.svg"/>
   </svg>
 
-  <div id="heading">
+  <!-- <div id="heading">
     <h1>Recording Booth</h1>
-  </div>
+  </div> -->
 
   <div id="instructions">
     <p>We would like you to share your story with us.  Please keep your recording time under 5 minutes.</p>
-    <p>Press <b>Record 🔘</b> to begin.</p>
+    <p>Press <b>Record</b> to begin.</p>
   </div>
 
   <div class="controls">
-    <button id="recordButton">Record 🔘</button>
-    <button id="stopButton" disabled>Stop 🛑</button>
-    <button id="submitButton" disabled>Submit ☑️</button>
-    <button id="redoButton" disabled>Redo ♻️</button>
+    <button id="recordButton">Record</button>
+    <button id="stopButton" disabled>Stop</button>
+    <button id="submitButton" disabled>Submit</button>
+    <button id="redoButton" disabled>Redo</button>
   </div>
 
     <p>Elapsed Time: <strong><span id="elapsedTime">0:00</span></strong></p>
@@ -39,15 +39,18 @@
       <div class="modalContent">
         <span id="close">&times;</span>
         <div id="thanksReset">
+          <div class="statusUpdates">✅</div>
           <p>Your recording has been submitted. Thank you!</p>
           <p>You may exit the recording booth while we reset.</p>
         </div>
         <div id="uploadUnsuccessful">
+          <div class="statusUpdates">❌</div>
           <p>Oh no, there was a problem uploading your recording!</p>
           <p>Please close this pop-up window and re-submit it.</p>
         </div>
         <div id="waitingToUpload">
-          <p>We are uploading your recording<span id="waiting">.</span></p>
+          <div class="statusUpdates">📭</div>
+          <p>We are uploading your recording<span id="waiting"></span></p>
           <p>Please await further instruction.</p>
         </div>
         <div id="termsLanguage">
@@ -57,16 +60,17 @@
                 </div>
             </div>
             <input type="checkbox" name="check" id="agree"/>
-            <span>I accept these terms and conditions.</span>
+            <span>I accept these terms and conditions.*</span>
             <br>
             <br>
+            <span style="font-size: 80%; font-style: italic;">*Required</span>
             <p>Please share your name and email for our records. You will not be added to our mailing list.</p>
             <input type="text" id="name" placeholder="Name" width="20%"/>
             <br>
             <input type="text" id="email" placeholder="Email" width="20%"/>
             <div class="controls">
-              <button id="confirmButton" disabled>Confirm ☑️</button>
-              <button id="cancelButton">Cancel ❌</button>
+              <button id="confirmButton" disabled>Confirm</button>
+              <button id="cancelButton">Cancel</button>
             </div>
         </div>
       </div>

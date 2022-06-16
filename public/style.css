@@ -43,10 +43,10 @@ h2 {
 
 .logo {
   padding: 15px;
-  position: absolute;
-  top: 0px;
-  float: right;
-  right: 0px;
+  /* position: absolute; */
+  /* top: 0px; */
+  /* float: right; */
+  /* right: 0px; */
 }
 
 red {
@@ -116,9 +116,8 @@ li {
   margin-bottom: 1rem;
 }
 
-#statusUpdates {
-  /* margin-top: 0.5rem; */
-  /* font-size: 80%; */
+.statusUpdates {
+  font-size: 250%;
 }
 
 #recordingsList{
@@ -181,7 +180,19 @@ li {
 }
 
 #cancelButton {
-  background: gray;
+  background: rgb(127, 127, 127);
+}
+
+#cancelButton:hover {
+  background: rgb(100, 100, 100);
+}
+
+#redoButton:enabled {
+  background: rgb(127, 127, 127);
+}
+
+#redoButton:hover {
+  background: rgb(100, 100, 100);
 }
 
 #legalScroll {
