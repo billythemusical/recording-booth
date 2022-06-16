@@ -310,7 +310,7 @@ async function uploadRecording() {
 	const success = await Promise.all([ upload(), sleep(5000) ])
 		.then( promises => {
 
-			const uploadResponse= promises[0]
+			const uploadResponse = promises[0]
 
 			if(!uploadResponse.ok) { // if the upload is unsuccessful
 
