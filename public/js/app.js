@@ -1,28 +1,24 @@
-import {
-	get,
-	set,
-	entries
-} from '/node_modules/idb-keyval/dist/index.js'
+// import { get, set, entries } from '../node_modules/idb-keyval/dist/index.js'
 // Only do this if you wanna clear all of the database (!!!)
 // import { clear } from '/node_modules/idb-keyval/dist/index.js'
 
 //webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL
 
-function testLocalStorage() {
-	set( 'hello', 'world' )
-		.then( e => console.log( 'set is working' ) )
-	get( 'hello' )
-		.then( e => console.log( 'get is working too,', e ) )
-}
-
-function printEntries() {
-	entries()
-		.then( e => {
-			console.log( 'printing the idb data store' )
-			e.forEach( f => console.log( f ) )
-		} )
-}
+// function testLocalStorage() {
+// 	set( 'hello', 'world' )
+// 		.then( e => console.log( 'set is working' ) )
+// 	get( 'hello' )
+// 		.then( e => console.log( 'get is working too,', e ) )
+// }
+//
+// function printEntries() {
+// 	entries()
+// 		.then( e => {
+// 			console.log( 'printing the idb data store' )
+// 			e.forEach( f => console.log( f ) )
+// 		} )
+// }
 
 // This will test and print the items saved locally
 // testLocalStorage()
@@ -248,13 +244,13 @@ function saveRecordingLocally(filename, blob) {
 	// create a URL for tracking down the file later?
 	let url = URL.createObjectURL( blob )
 
-	// also save to local storage using idb keyval
-	var saveObj = {
-		blob: blob,
-		url: url
-	}
-	set( ( filename + ".wav" ), saveObj )
-		.then( () => console.log( "set", filename + ".wav", saveObj ) )
+	// // also save to local storage using idb keyval
+	// var saveObj = {
+	// 	blob: blob,
+	// 	url: url
+	// }
+	// set( ( filename + ".wav" ), saveObj )
+	// 	.then( () => console.log( "set", filename + ".wav", saveObj ) )
 }
 
 function uploadRecording() {
@@ -290,7 +286,7 @@ function uploadRecording() {
 			console.log( res )
 			termsLanguage.style.display = "none"
 			thanksReset.style.display = "block"
-			setTimeout(redoRecording, 5000)
+			setTimeout(redoRecording, 10000)
 		})
 		.catch( error => ( 'Error occured', error ) )
 }
@@ -319,26 +315,31 @@ function confirmRedo() {
 }
 
 function redoRecording() {
-	//clear the recording and reset the buttons
-	recordButton.disabled = false
-	stopButton.disabled = true
-	submitButton.disabled = true
-	redoButton.disabled = true
 
-	// Stop the recording if you haven't already
-	if ( rec.recording ) rec.stop()
-	// Reset the recording - we'll create a new one later
-	rec = null
-	// Delete the saved recording elements
-	recordingsList.innerHTML = ""
-	// Hide the termsPopup if it is shown
-	termsPopup.style.display = "none"
-	// Reset the elapsed time counter
-	elapsedTime.innerHTML = "0:00"
+	// Just reload the page, why not?
+	location.reload()
 
+	// //clear the recording and reset the buttons
+	// recordButton.disabled = false
+	// stopButton.disabled = true
+	// submitButton.disabled = true
+	// redoButton.disabled = true
+	//
+	// // Stop the recording if you haven't already
+	// if ( rec.recording ) rec.stop()
+	// // Reset the recording - we'll create a new one later
+	// rec = null
+	// // Delete the saved recording elements
+	// recordingsList.innerHTML = ""
+	// // Hide the termsPopup if it is shown
+	// termsPopup.style.display = "none"
+	// // Reset the elapsed time counter
+	// elapsedTime.innerHTML = "0:00"
 
 }
 
+
+// Hide the terms if you click anywhere off of it.
 window.onclick = function( event ) {
 	if ( event.target == termsPopup ) {
 		termsPopup.style.display = "none"

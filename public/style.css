@@ -15,10 +15,14 @@ body {
 	line-height: 1.5;
 	/* font-family: sans-serif; */
   font-family: "tradegothic", sans-serif;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
+	/* word-wrap: break-word; */
+	/* overflow-wrap: break-word; */
 	color:black;
 	margin:2em;
+}
+
+input[type=text] {
+  width: 200px;
 }
 
 h1 {
@@ -175,16 +179,19 @@ li {
 #legalScroll {
   height: 200px;
   width: 400px;
-  overflow: auto;
+  overflow: scroll;
   border: 1px;
   border-color: black;
+  margin-top: 10px;
+  margin-bottom: 10px;
   /* display: none; */
 }
 
 #legalLanguage {
   height: 800px;
   width: 400px;
-  /* background-color: lightgray; */
-  padding: 6px;
+  background-color: lightgray;
+  padding-left: 8px;
+  padding-top: 10px;
   font-family: 'helvetica';
 }
