@@ -11,8 +11,8 @@ require('dotenv').config();
 const port = process.env.PORT
 
 // Get the certs for HTTPS
-const key = fs.readFileSync(__dirname + '/../certs/selfsigned.key');
-const cert = fs.readFileSync(__dirname + '/../certs/selfsigned.crt');
+const key = fs.readFileSync(__dirname + '/certs/selfsigned.key');
+const cert = fs.readFileSync(__dirname + '/certs/selfsigned.crt');
 const options = {
   key: key,
   cert: cert
@@ -68,7 +68,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 })
 
 
-const server = https.createSever(options, app)
+const server = https.createServer(options, app)
 
 server.listen(port, function() {
 	console.log('We are listening on port ' + port)
