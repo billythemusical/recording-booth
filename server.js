@@ -59,7 +59,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 			flag: 'a'
 		})
 	} catch (error) {
-		console.error(error)
+		console.error('Error writing to the log file:', error)
 	}
 	res.send({
 		message: 'Successfully uploaded files',

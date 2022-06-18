@@ -1,3 +1,9 @@
+/* From https://www.thesitewizard.com/css/mobile-friendly-responsive-design.shtml */
+@viewport {
+  width: device-width ;
+  zoom: 1.0 ;
+}
+
 a {
   color: #337ab7;
 }
@@ -41,9 +47,11 @@ h2 {
   display: inline-flex;
 }
 
-.logo {
+#logo {
   padding: 15px;
+  width: auto;
   max-width: 600px;
+  min-width: 300px;
   /* position: absolute; */
   /* top: 0px; */
   /* float: right; */
@@ -214,4 +222,27 @@ li {
   padding-left: 8px;
   padding-top: 10px;
   font-family: 'helvetica';
+}
+
+@media screen and (max-width:415px) {
+
+  #logo {
+    padding: 15px;
+    min-width: 90%;
+    /* position: absolute; */
+    /* top: 0px; */
+    /* float: right; */
+    /* right: 0px; */
+  }
+
+  /* CSS for screens that are 415 pixels or less will be put in this section */
+  .controls {
+    display: grid;
+    grid-template-colums: 1;
+    grid-gap: 10px;
+    place-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    max-width: 80px;
+  }
 }
