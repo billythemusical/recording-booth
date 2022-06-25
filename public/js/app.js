@@ -241,6 +241,7 @@ function cancelSubmission() {
 function resetTerms() {
 	termsLanguage.style.display = "block"
 	thanksReset.style.display = "none"
+	close.style.display = "block"
 	confirmButton.disabled = true
 	agree.checked = false
 }
@@ -271,6 +272,7 @@ async function uploadRecording() {
 	waitingToUpload.style.display = "block"
 	termsLanguage.style.display = "none"
 	thanksReset.style.display = "none"
+	close.style.display = "none"
 
 	// Save the recording locally before trying to upload
 	saveRecordingLocally(fileName, ourBlob)
@@ -315,6 +317,7 @@ async function uploadRecording() {
 			if(!uploadResponse.ok) { // if the upload is unsuccessful
 
 				waitingToUpload.style.display = "none"
+				termsPopup.style.display = "block"
 				uploadUnsuccessful.style.display = "block"
 
 			} else { // if the upload was successful
@@ -324,7 +327,10 @@ async function uploadRecording() {
 
 				waitingToUpload.style.display = "none"
 				termsLanguage.style.display = "none"
+				close.style.display = "none"
+				termsPopup.style.display = "block"
 				thanksReset.style.display = "block"
+
 				setTimeout(redoRecording, 10000)
 
 			}
@@ -366,7 +372,7 @@ function redoRecording() {
 	stopButton.disabled = true
 	submitButton.disabled = true
 	redoButton.disabled = true
-	//
+
 	// Stop the recording if you haven't already
 	if ( rec.recording ) rec.stop()
 	// Reset the recording - we'll create a new one later
@@ -375,6 +381,7 @@ function redoRecording() {
 	recordingsList.innerHTML = ""
 	// Hide the termsPopup if it is shown
 	termsPopup.style.display = "none"
+	close.style.display = "none"
 	// Reset the elapsed time counter
 	elapsedTime.innerHTML = "0:00"
 	// Hide the latest message

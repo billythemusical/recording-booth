@@ -23,8 +23,8 @@ body {
   font-family: "tradegothic", sans-serif;
 	/* word-wrap: break-word; */
 	/* overflow-wrap: break-word; */
-	color:black;
-	margin:2em;
+	color: black;
+	margin: 2em;
 }
 
 input[type=text] {
@@ -52,10 +52,6 @@ h2 {
   width: auto;
   max-width: 600px;
   min-width: 300px;
-  /* position: absolute; */
-  /* top: 0px; */
-  /* float: right; */
-  /* right: 0px; */
 }
 
 red {
@@ -227,12 +223,13 @@ li {
 @media screen and (max-width:415px) {
 
   #logo {
-    padding: 15px;
+    padding: 0px;
+    height: 25px;
     min-width: 90%;
-    /* position: absolute; */
-    /* top: 0px; */
-    /* float: right; */
-    /* right: 0px; */
+    min-height: 5%;
+    display: block;
+    margin: auto;
+    margin-bottom: 30px;
   }
 
   /* CSS for screens that are 415 pixels or less will be put in this section */
@@ -240,9 +237,54 @@ li {
     display: grid;
     grid-template-colums: 1;
     grid-gap: 10px;
+    /* align-content: center; */
     place-items: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
     max-width: 80px;
+  }
+
+  #legalScroll {
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    border: 1px;
+    border-color: black;
+    background-color: lightgray;
+    /* display: none; */
+  }
+
+  #legalLanguage {
+    height: 300px;
+    width: 90%;
+    /* background-color: lightgray; */
+    padding-left: 8px;
+    padding-top: 10px;
+    font-family: 'helvetica';
+  }
+
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    /* position: fixed; /* Stay in place */ */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    margin: auto;
+    width: 90%; /* Full width */
+    height: 90%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modalContent {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
   }
 }
