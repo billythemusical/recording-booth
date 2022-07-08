@@ -11,9 +11,9 @@ require('dotenv').config();
 const port = process.env.PORT
 
 // Get the certs for HTTPS
-const key = fs.readFileSync(__dirname + '/certs/selfsigned.key');
-const cert = fs.readFileSync(__dirname + '/certs/selfsigned.crt');
-const options = {
+const key = fs.readFileSync(__dirname + '/certs/private.key');
+const cert = fs.readFileSync(__dirname + '/certs/certificate.crt');
+const serverOptions = {
   key: key,
   cert: cert
 };
@@ -34,9 +34,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 // Not sure why we need these two lines
-app.use(bodyParser.urlencoded({
-	extended: false
-}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // Serve the static 'public' direcotry
@@ -68,7 +66,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 })
 
 
-const server = https.createServer(options, app)
+const server = https.createServer(serverOptions, app)
 
 server.listen(port, function() {
 	console.log('We are listening on port ' + port)
