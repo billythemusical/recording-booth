@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const bodyParser = require('body-parser')
 const serveIndex = require('serve-index')
+const upload = require('./upload.js')
+const auth = require('./auth.js')
 const express = require('express')
 const https = require('https')
 const app = express()
@@ -9,29 +11,22 @@ const app = express()
 // Load the port from our .env file
 require('dotenv').config();
 const port = process.env.PORT
+const keyPath = process.env.KEY_PATH
+const certPath = process.env.CERT_PATH
 
 // Get the certs for HTTPS
-const key = fs.readFileSync(__dirname + '/certs/private.key');
-const cert = fs.readFileSync(__dirname + '/certs/certificate.crt');
-const serverOptions = {
+const key = fs.readFileSync(__dirname + keyPath);
+const cert = fs.readFileSync(__dirname + certPath);
+const certs = {
   key: key,
   cert: cert
 };
 
-// Multer stores uploaded files to disk
-const multer = require('multer')
-const storage = multer.diskStorage({
-	filename: function(req, file, cb) {
-		console.log('filename')
-		const fileName = `${req.body.username}:${req.body.email}:${req.body.fileName}`
-		cb(null, fileName)
-	},
-	destination: function(req, file, cb) {
-		console.log('storage')
-		cb(null, './upload')
-	},
+// For redirecting HTTP requests to HTTPS
+app.enable('trust proxy')
+app.use((req, res, next) => {
+    req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
 })
-const upload = multer({ storage })
 
 // Not sure why we need these two lines
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -42,7 +37,7 @@ app.use(express.static('public'))
 
 // Setup a virtual URL to serve the '../upload' directory
 // We need express.static to allow the files to be downloaded
-app.use('/recordings',
+app.use('/recordings', auth,
   express.static(__dirname + '/upload'),
   serveIndex(__dirname + '/upload', { view: "details" })
 )
@@ -65,9 +60,13 @@ app.post('/upload', upload.single('file'), (req, res) => {
 	})
 })
 
+// For redirecting http requests to https
+app.listen(80, function() {
+	console.log('We are listening on port ' + 80)
+});
 
-const server = https.createServer(serverOptions, app)
-
+// For https service
+const server = https.createServer(certs, app)
 server.listen(port, function() {
 	console.log('We are listening on port ' + port)
 })
