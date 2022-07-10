@@ -1,7 +1,5 @@
-const authorizedUsers = [
-  "alison.cornyn@gmail.com",
-  "bennett.billy@gmail.com"
-]
+require('dotenv').config()
+const authorizedUsers = (JSON.parse(process.env.AUTH_USERS)).users
 
 const auth = (req, res, next) => {
   const reject = () => {
