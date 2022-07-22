@@ -12,12 +12,33 @@
   .recordingsList {
     margin: 30px;
   }
+  audio {
+    margin-top: 10px;
+  }
 </style>
 
 <body>
   <h1>Incorrigibles Recordings</h1>
+  <h3> There are <%=recordings.length%> recording(s) in the database. </div>
   <div class="recordingsList">
+    <% recordings.forEach(rec => { %>
+
+      <div>Name: <%= rec.username %></div>
+      <div>Email: <%= rec.email %></div>
+      <div>Phone: <%= rec.phone %></div>
+      <div>Age: <%= rec.age %> years old</div>
+      <div>Location: <%= rec.location %></div>
+      <div>Select one answer: <%= rec.association %></div>
+      <div>Agreed to Terms: <%= rec.termsAccepted %></div>
+      <div><a href='/rec/<%= rec.referenceFileName %>'>Download</a><div>
+      <!-- <div>Length: <% Math.floor(rec.duration / 60) + ":" + (rec.duration % 60) %><div> -->
+      <div>
+          <audio controls=true src='/rec/<%= rec.referenceFileName %>' download controls />
+      </div>
       <hr />
+
+    <% }) %>
+
     </div>
   </div>
 </body>
