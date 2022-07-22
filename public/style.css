@@ -235,7 +235,7 @@ li {
   /* CSS for screens that are 415 pixels or less will be put in this section */
   .controls {
     display: grid;
-    grid-template-colums: 1;
+    grid-template-columns: 1;
     grid-gap: 10px;
     /* align-content: center; */
     place-items: center;
@@ -266,7 +266,7 @@ li {
   /* The Modal (background) */
   .modal {
     display: none; /* Hidden by default */
-    /* position: fixed; /* Stay in place */ */
+    /* position: fixed; */ /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
     left: 0;
@@ -287,4 +287,5 @@ li {
     border: 1px solid #888;
     width: 80%;
   }
+  
 }

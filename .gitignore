@@ -1,8 +1,8 @@
 .DS_Store
+*.db
 misc/*
 node_modules/*
 upload/*
-.DS_Store
-public/node_modules/*
+public/node_modules/
 .env
 certs/*

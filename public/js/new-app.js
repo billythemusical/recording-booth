@@ -40,42 +40,45 @@ let fileName // Name to call the recording
 let startTime
 let ellipses = ""
 let ellipsesTimeoutID
+let cancelElipses
 
 // shim for AudioContext when it's not avb.
 const AudioContext = window.AudioContext || window.webkitAudioContext
 let audioContext //audio context to help us record
 
+const submissionForm = document.getElementById( "submissionForm" )
+const thanksReset = document.getElementById( "thanksReset" )
 const recordButton = document.getElementById( "recordButton" )
 const stopButton = document.getElementById( "stopButton" )
 const submitButton = document.getElementById( "submitButton" )
 const redoButton = document.getElementById( "redoButton" )
 const recordingsList = document.getElementById( "recordingsList" )
 const elapsedTime = document.getElementById( "elapsedTime" )
-const termsPopup = document.getElementById( "termsPopup" )
-const termsLanguage = document.getElementById( "termsLanguage")
-const thanksReset = document.getElementById( "thanksReset")
+// const termsPopup = document.getElementById( "termsPopup" )
+// const termsLanguage = document.getElementById( "termsLanguage")
+const modal = document.getElementById( "modal" )
 const waitingToUpload = document.getElementById( "waitingToUpload")
 const waiting = document.getElementById( "waiting")
 const uploadUnsuccessful = document.getElementById( "uploadUnsuccessful")
-const agree = document.getElementById( "agree" )
-const confirmButton = document.getElementById( "confirmButton" )
-const cancelButton = document.getElementById( "cancelButton" )
-const close = document.getElementById( "close" )
+const acceptTerms = document.getElementById( "acceptTerms" )
+// const confirmButton = document.getElementById( "confirmButton" )
+// const cancelButton = document.getElementById( "cancelButton" )
+// const close = document.getElementById( "close" )
+const form = document.getElementById( "form" )
 
 //add events to buttons
 recordButton.addEventListener( "click", startRecording )
 stopButton.addEventListener( "click", stopRecording )
-submitButton.addEventListener( "click", confirmSubmission )
-confirmButton.addEventListener( "click", uploadRecording )
-cancelButton.addEventListener( "click", cancelSubmission )
+submitButton.addEventListener("click", uploadRecording )
+// cancelButton.addEventListener( "click", cancelSubmission )
 redoButton.addEventListener( "click", confirmRedo )
-close.addEventListener( "click", cancelSubmission )
+// close.addEventListener( "click", cancelSubmission )
 
 // Must be checked to Submit recording
-agree.addEventListener( 'change', toggleCheck )
+acceptTerms.addEventListener( 'change', toggleCheck )
 
 
-function startRecording() {
+async function startRecording() {
 	console.log( "recordButton clicked" )
 
 	/*
@@ -106,47 +109,53 @@ function startRecording() {
     	https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 	*/
 
-	navigator.mediaDevices.getUserMedia( constraints ).then( function( stream ) {
-		console.log( "getUserMedia() success, stream created, initializing Recorder.js ..." )
+	try {
 
-		/*
-			create an audio context after getUserMedia is called
-			sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
-			the sampleRate defaults to the one set in your OS for your playback device
+		await navigator.mediaDevices.getUserMedia( constraints ).then( function( stream ) {
+			console.log( "getUserMedia() success, stream created, initializing Recorder.js ..." )
 
-		*/
-		audioContext = new AudioContext()
-		startTime = new Date().getTime()
+			/*
+				create an audio context after getUserMedia is called
+				sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+				the sampleRate defaults to the one set in your OS for your playback device
 
-		/*  assign to gumStream for later use  */
-		gumStream = stream
+			*/
+			audioContext = new AudioContext()
+			startTime = new Date().getTime()
 
-		/* use the stream */
-		input = audioContext.createMediaStreamSource( stream )
+			/*  assign to gumStream for later use  */
+			gumStream = stream
 
-		/*
-			Create the Recorder object and configure to record mono sound (1 channel)
-			Recording 2 channels  will double the file size
-		*/
-		rec = new Recorder( input, {
-			numChannels: 1
-		} )
+			/* use the stream */
+			input = audioContext.createMediaStreamSource( stream )
 
-		//start the recording process
-		rec.record()
+			/*
+				Create the Recorder object and configure to record mono sound (1 channel)
+				Recording 2 channels  will double the file size
+			*/
+			rec = new Recorder( input, {
+				numChannels: 1
+			} )
 
-		updateRecordingTime()
+			//start the recording process
+			rec.record()
 
-		console.log( "Recording started" )
+			updateRecordingTime()
 
-	} ).catch( function( err ) {
-		console.log(err)
+			console.log( "Recording started" )
+
+		})
+
+	} catch(err) {
+		console.log('getUserMedia failed:', err)
+		alert("You must allow access to the microphone to record audio. Please try again.")
+
 		//enable the record button if getUserMedia() fails
 		recordButton.disabled = false
 		stopButton.disabled = true
 		submitButton.disabled = true
 		redoButton.disabled = true
-	} )
+	}
 }
 
 function updateRecordingTime() {
@@ -171,7 +180,7 @@ function stopRecording() {
 	//disable the stop button, enable the record too allow for new recordings
 	stopButton.disabled = true
 	recordButton.disabled = true
-	submitButton.disabled = false
+	// submitButton.disabled = false
 	redoButton.disabled = false
 
 	//reset button just in case the recording is stopped while paused
@@ -194,7 +203,7 @@ function createDownloadLink( blob ) {
 
 	let url = URL.createObjectURL( blob )
 	let au = document.createElement( 'audio' )
-	let li = document.createElement( 'li' )
+	let span = document.createElement( 'span' )
 	let link = document.createElement( 'a' )
 
 	//name of .wav file to use during upload and download (without extendion)
@@ -202,48 +211,43 @@ function createDownloadLink( blob ) {
 
 	//add controls to the <audio> element
 	au.controls = true
+	au.style.position = "relative"
+	au.style.display = "inline"
+	au.style.verticalAlign = "bottom"
+	au.style.width = "300px"
+	// au.style.top = "10px"
+	au.style.left = "20px"
+	
 	au.src = url
 
 	//add the new audio element to li
-	li.appendChild( au )
+	// span.appendChild( au )
 
 	//add the filename to the li
-	li.appendChild( document.createTextNode( fileName + ".wav " ) )
+	// li.appendChild( document.createTextNode( fileName + ".wav " ) )
 
 	//add the save to disk link to li
 	// li.appendChild(link)
 
 	//add the li element to the ol
-	recordingsList.appendChild( li );
+	recordingsList.appendChild( au );
 
-}
-
-function confirmSubmission() {
-
-	// if recording...
-	if ( rec.recording ) {
-		rec.stop()
-		stopButton.disabled = true
-		recordButton.disabled = true
-		redoButton.disabled = false
-	}
-
-	termsPopup.style.display = "block"
-	resetTerms()
 }
 
 function cancelSubmission() {
-	resetTerms()
-	termsPopup.style.display = "none"
+	// termsPopup.style.display = "none"
 	redoButton.disabled = false
 }
 
-function resetTerms() {
-	termsLanguage.style.display = "block"
+function resetForm() {
+	// Reset all inputs
+	form.reset()
+	acceptTerms.checked = false
+	// Hide the thanks page
 	thanksReset.style.display = "none"
-	close.style.display = "block"
-	confirmButton.disabled = true
-	agree.checked = false
+	// And show the submission form
+	submissionForm.style.display = "block"
+	
 }
 
 function saveRecordingLocally(filename, blob) {
@@ -262,34 +266,55 @@ function saveRecordingLocally(filename, blob) {
 
 async function uploadRecording() {
 
-	if ( agree.checked == false ) {
-		alert( "Please accept the terms and conditions before confirming." )
+	// if recording...
+	if (!rec) {
+		alert('Please make a recording first.')
+		return
+	} else if (rec.recording) {
+		rec.stop()
+		stopButton.disabled = true
+		recordButton.disabled = true
+		redoButton.disabled = false
+	}
+
+	const acceptedTerms = document.getElementById('acceptTerms').checked
+	console.log(acceptedTerms)
+	if ( !acceptedTerms ) {
+		alert( "Please accept our terms and conditions before confirming." )
 		return
 	}
 
 	// Tell the user we are uploading their recording, waiting...
-	waitingEllipses()
-	waitingToUpload.style.display = "block"
-	termsLanguage.style.display = "none"
-	thanksReset.style.display = "none"
-	close.style.display = "none"
+	showModal()
 
 	// Save the recording locally before trying to upload
 	saveRecordingLocally(fileName, ourBlob)
 	// TO DO: Delete local recording if user so chooses...
 
+	// Get the user input
 	let name = document.getElementById( 'name' ).value
 	name = name ? name : "blank" // hacks on hacks on hacks on...
 	let email = document.getElementById( 'email' ).value
 	email = email ? email : "blank" // hacks on hacks on hacks on...
-	let agreed = agree.checked
-	console.log( 'got name and email:', name, email )
-	console.log( 'did they accept the TOS?', agreed )
+	let phone = document.getElementById( 'phone' ).value
+	phone = phone ? phone.replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ") : "blank" // hacks on hacks on hacks on...
+	let age = document.getElementById( 'age' ).value
+	age = age ? age : "blank" // hacks on hacks on hacks on...
+	let location = document.getElementById( 'location' ).value
+	location = location ? location : "blank" // hacks on hacks on hacks on...
+	let association = getAssoc()
+	let accepted = acceptTerms.checked
+	console.log(`got contact info:\n${name}\n${email}\n${phone}\n${age}\n${location}\n${association}\n${accepted}`)
+
 
 	var fd = new FormData()
 	fd.append( 'username', name )
 	fd.append( 'email', email )
-	fd.append( 'termsAccepted', agreed )
+	fd.append( 'phone', phone )
+	fd.append( 'age', age )
+	fd.append( 'location', location )
+	fd.append( 'association', association )
+	fd.append( 'termsAccepted', accepted )
 	fd.append( 'fileName', fileName + ".wav" )
 	fd.append( 'file', ourBlob )
 
@@ -317,7 +342,6 @@ async function uploadRecording() {
 			if(!uploadResponse.ok) { // if the upload is unsuccessful
 
 				waitingToUpload.style.display = "none"
-				termsPopup.style.display = "block"
 				uploadUnsuccessful.style.display = "block"
 
 			} else { // if the upload was successful
@@ -325,11 +349,7 @@ async function uploadRecording() {
 				clearTimeout(ellipsesTimeoutID)
 				console.log(`cleared timeout: ${ellipsesTimeoutID}`)
 
-				waitingToUpload.style.display = "none"
-				termsLanguage.style.display = "none"
-				close.style.display = "none"
-				termsPopup.style.display = "block"
-				thanksReset.style.display = "block"
+				showThanks()
 
 				setTimeout(redoRecording, 10000)
 
@@ -337,16 +357,17 @@ async function uploadRecording() {
 		})
 		.catch(error => console.log('Error handling upload:', error))
 
+		return "success"
 }
 
 function toggleCheck() {
-	// console.log( "agree element\n", agree )
-	if ( agree.checked == true ) {
-		// console.log( 'checked agree' );
-		confirmButton.disabled = false
+	// console.log( "acceptTerms element\n", acceptTerms )
+	if ( acceptTerms.checked == true ) {
+		// console.log( 'checked acceptTerms' );
+		submitButton.disabled = false
 	} else {
-		// console.log( 'does not agree' );
-		confirmButton.disabled = true
+		// console.log( 'does not acceptTerms' );
+		submitButton.disabled = true
 	}
 }
 
@@ -372,6 +393,13 @@ function redoRecording() {
 	stopButton.disabled = true
 	submitButton.disabled = true
 	redoButton.disabled = true
+	acceptTerms.checked = false
+
+	//Hide the Thank you page
+	thanksReset.style.display = "none"
+	// Show the submission form
+	submissionForm.style.display = "block"
+	
 
 	// Stop the recording if you haven't already
 	if ( rec.recording ) rec.stop()
@@ -379,30 +407,61 @@ function redoRecording() {
 	rec = null
 	// Delete the saved recording elements
 	recordingsList.innerHTML = ""
-	// Hide the termsPopup if it is shown
-	termsPopup.style.display = "none"
-	close.style.display = "none"
 	// Reset the elapsed time counter
 	elapsedTime.innerHTML = "0:00"
 	// Hide the latest message
-	uploadUnsuccessful.style.display = "none"
+	hideModal()
 
 }
 
+async function showModal() {
+	await sleep(1000)
+	cancelElipses = waitingEllipses()
+	modal.style.display = "block"
+	waitingToUpload.style.display = "block"
+}
+
+function hideModal() {
+	clearTimeout(cancelElipses)
+	modal.style.display = "none"
+	uploadUnsuccessful.style.display = "none"
+	waitingToUpload.style.display = "block"
+}
+
 function waitingEllipses() {
-	if (ellipses.length >= 3) ellipses = ""
+	if (ellipses.length >= 3) {
+		ellipses = ""
+	}
 	ellipses += "."
 	waiting.innerHTML = ellipses
 	ellipsesTimeoutID = setTimeout(waitingEllipses, 500)
 }
 
+// Get the asscotiation from the radio button selection
+function getAssoc () {
+	let associations = document.getElementsByName("association");
+	let association;
+	associations.forEach(a => {
+		if (a.checked) {
+			console.log(`ran getAssoc(): ${a.value}`)
+			association = a.value
+		} else {
+			association = null
+		}
+	})
+	return association
+}
+
+function showThanks() {
+	form.reset()
+	thanksReset.style.display = "block"
+	submissionForm.style.display = "none"
+	window.scrollTo({
+		top: 0,
+		left: 0,
+		behavior: 'smooth'
+	});
+}
+
 // A sleep function
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-
-// Hide the terms if you click anywhere off of it.
-window.onclick = function( event ) {
-	if ( event.target == termsPopup ) {
-		termsPopup.style.display = "none"
-	}
-}

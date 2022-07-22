@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incorrigibles: Recording Booth</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="new-style.css">
+
+    <div class="heading">
+        <span id="title">Audio Submission Form</span>
+        <svg id="logo">
+            <image width=100% height=100% href="images/incorrigibles.svg" />
+        </svg>
+    </div>
+
+</head>
+<body>
+
+    <!-- <div class="heading">
+        <span id="title">Audio Submission Form</span>
+        <svg id="logo">
+            <image width=100% height=100% href="images/incorrigibles.svg" />
+        </svg>
+    </div> -->
+
+        <page1 id="submissionForm">
+
+                <div>
+                    <p class="note welcome">
+                    Thank you for participating in the Incorrigibles project,<br>
+                    about the history of young women's incarceration and<br>
+                    stigmatizing language used to define and confine girls.<br>
+                    We are grateful to you for contributing your story<br> 
+                    to this archive.<br>
+                    </p>
+                </div>
+
+
+                <form id="form">
+
+                    <div class="section">
+                        <p class="instructions">
+                            Please respond to the prompts below (although these are not required).<br>
+                            You can reach out to <a class="link" href="mailto:info@incorrigibles.org">info@incorrigibles.org</a> with any questions or concerns.
+                        </p>
+                    </div>
+
+
+                    <div class="section">
+                        <p class="question">
+                            What is your name?
+                        </p>
+                        <input type="text" name="name" id="name">
+                    </div>
+
+
+                    <div class="section">
+                        <p class="question">
+                            Contact Information?
+                        </p>
+                        <div class="dual-input">
+                            <input type="text" name="email" id="email" placeholder="Email">
+                            <input type="text" name="phone" id="phone" placeholder="Phone">
+                        </div>
+                    </div>
+
+
+                    <div class="section">
+                        <p class="question">
+                            Your age?
+                        </p>
+                        <input type="text" name="age" id="age">
+                    </div>
+
+
+                    <div class="section">
+                        <p class="question">
+                            Where do you live?
+                        </p>
+                        <input type="text" name="location" id="location">
+                    </div>
+
+
+                    <div class="section">
+                        <p class="question">
+                            Select one of the following:
+                        </p>
+
+                        <div class="select">
+
+                            <label class="radios" for="radio1">
+                                <input id="radio1" type="radio" name="association" value="I (or my family member) was at the New York State Training School for Girls (NYSTSG)."/>
+                                <span class="radio"></span>
+                                I (or my family member) was at the New York State Training School for Girls (NYSTSG).
+                            </label>
+
+                            <label class="radios" for="radio2">
+                                <input id="radio2" type="radio" name="association" value="I was at another institution."/>
+                                <span class="radio"></span>
+                                I was at another institution.
+                            </label>
+
+                            <label class="radios" for="radio3">
+                                <input id="radio3" type="radio" name="association" value="Neither of the above, but I want to tell my INCORRIGIBLE story."/>
+                                <span class="radio"></span>
+                                Neither of the above, but I want to tell my INCORRIGIBLE story.
+                            </label>
+
+                            <label class="radios" for="radio4">
+                                <input id="radio4" type="radio" name="association" value="I just want to talk about what the exhibition brought up for me." />
+                                <span class="radio"></span>
+                                I just want to talk about what the exhibition brought up for me.
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+
+                <div class="section">
+
+                    <p class="question">
+                        Tell us your story.
+                    </p>
+
+                    <div>
+                        You may want to consider the following questions or just tell your story:<br> 
+                        1. When were you or your family member at the NYS Training School?<br>
+                        2. What was happening in your life and in your family before you were sent away?<br>
+                        3. What was your first day there like?<br>
+                        4. Best memory? Worst memory?<br>
+                        5. Is there a story of one person who has deeply affected you and your life?<br>
+                        6. Voice - how did you find your voice and/or start to use it?<br>
+                        7. What word/s has someone used to define you? And what word/s would you use to define yourself?<br>
+                        8. What does &lsquo;incorrigible&rsquo; mean to you?<br>
+                        9. What did the exhibition bring up for you?<br>
+                        <br>
+                        Please keep your recording time under 5 minutes. Press <b>Record</b> to begin.
+                    </div>
+
+                </div>
+
+
+                <div class="section">
+                    <div>
+                        <button enabled id="recordButton">RECORD</button>
+                    </div>
+                    <span class="half-buttons">
+                        <button disabled id="stopButton">STOP</button>
+                        <button disabled id="redoButton">REDO</button>
+                </div>
+
+
+                <div class="section mediumText" >
+                    Elapsed Time: <strong><span class="largeText" id="elapsedTime">0:00</span></strong><br>
+                    Completed Recordings: <span class="alignTop" id="recordingsList"></span>
+                </div>
+
+
+                <div class="section">
+                    <label class="checks" for="acceptTerms" id="legal">By submitting your story you agree that it may be shared on the Incorrigibles website,<br>
+                    in the exhibition, and grant permission for others to use it. Your submission may be<br>
+                    edited for quality or clarity. We appreciate your help in documenting this institution<br>
+                    and your own experiences. Thank you.
+                        <input type="checkbox" name="acceptTerms" id="acceptTerms">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+
+                <div class="section">
+                    <button disabled id="submitButton">SUBMIT</button>
+                </div>
+
+
+                <div class="modal mediumText" id="modal">
+                    <div id="waitingToUpload">
+                        We are upload your recording now. Please wait<span id="waiting"></span>
+                    </div>
+                    <div id="uploadUnsuccessful">We are sorry, but there was a problem uploading your recording!<br>
+                        Please hit <strong>REDO</strong>, click <strong>YES</strong>, and try again.
+                    </div>
+                </div>
+
+            </form>
+
+        </page1>
+
+
+
+        <page2 id="thanksReset">
+
+
+                <div class="note">
+                    <p>Thank you for your participation!</p>
+                    <p>Your recording has been successfully submitted.</p>
+                    <br>
+                    <p class="regularText">
+                        You may now leave the booth as we reset the page for the next participant.
+                    </p>
+                </div>
+                <br>
+
+
+        </page2>
+
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+    <script src="js/recorder.js" type="text/javascript"></script>
+    <script src="js/new-app.js" type="text/javascript"></script>
+</body>
+
+
+<footer>
+    <div class="section">
+        If you would like to submit photos, please email us at 
+        <a href="mailto:info@incorrigibles.org">info@incorrigibles.org</a> to send them 
+        digitally or we will arrange to have your photo scanned and returned to you.
+    </div>
+</footer>
+
+</html>
