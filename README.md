@@ -7,3 +7,9 @@ I used the [*Simple Recorder.js demo*](https://addpipe.com/simple-recorderjs-dem
 I also experimented with the *idb-keyval* package to save the recordings locally in case the upload crashes.  I had to mix it in as a module which is why the app.js is listed as a module in index.html.  If you use it, just be careful not to forget to occasionally clear the local storage once your recordings are saved and backed up.
 
 There have been some changes to the web browser since Recorder.js was built.  The navigator.getUserMedia method will only work in a secure context, aka HTTPS.  I followed [these instructions](https://stackoverflow.com/questions/11744975/enabling-https-on-express-js) to get my server to use HTTPS.  This is not a great solution, as it makes the user proceed through a few warnings to get to the page, but it works nonetheless.  
+
+# TO-DOs
+
+- Style EJS control interface
+- Sort local storage and accompanying control interface
+- Set up how to delete recordings after downloaded
