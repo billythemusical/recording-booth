@@ -6,12 +6,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recordings</title>
+  <!-- <link href="http://e0df-2603-7000-8c40-3669-60d4-4eb-dd49-fd3c.ngrok.io/style.css"
+    rel="stylesheet" type="text/css" crossorigin="anonymous">
+
+  <div class="heading">
+      <span id="title">Audio Recordings</span>
+      <svg id="logo">
+          <image width=100% height=100% href="http://e0df-2603-7000-8c40-3669-60d4-4eb-dd49-fd3c.ngrok.io/images/incorrigibles.svg" />
+      </svg>
+  </div> -->
+
 </head>
 <style>
   .recordingsList {
     margin: 30px;
   }
+
+  div {
+    padding-bottom: 5px;
+  }
+
   audio {
     margin-top: 10px;
   }
@@ -19,22 +33,28 @@
 
 <body>
   <h1>Incorrigibles Recordings</h1>
-  <h3> There are <%=recordings.length%> recording(s) in the database. </div>
+  <h3> There are <%=recordings.length%> recording(s) in the database. </h3>
   <div class="recordingsList">
     <% recordings.forEach(rec => { %>
 
-      <div>Name: <%= rec.username %></div>
-      <div>Email: <%= rec.email %></div>
-      <div>Phone: <%= rec.phone %></div>
-      <div>Age: <%= rec.age %> years old</div>
-      <div>Location: <%= rec.location %></div>
-      <div>Select one answer: <%= rec.association %></div>
-      <div>Agreed to Terms: <%= rec.termsAccepted %></div>
-      <div><a href='/rec/<%= rec.referenceFileName %>'>Download</a><div>
-      <!-- <div>Length: <% Math.floor(rec.duration / 60) + ":" + (rec.duration % 60) %><div> -->
-      <div>
-          <audio controls=true src='/rec/<%= rec.referenceFileName %>' download controls />
-      </div>
+      <!-- <div class="section medium"> -->
+
+        <div>Name: <%= rec.username %></div>
+        <div>Email: <%= rec.email %></div>
+        <div>Phone: <%= rec.phone %></div>
+        <div>Age: <%= rec.age %> years old</div>
+        <div>Location: <%= rec.location %></div>
+        <div>Select one answer: <%= rec.association %></div>
+        <div>Recorded date: <%= rec.date %>
+        <div>Agreed to Terms: <%= rec.termsAccepted %></div>
+        <div><a href='/rec/<%= rec.referenceFileName %>'>Download</a><div>
+        <!-- <div>Length: <% Math.floor(rec.duration / 60) + ":" + (rec.duration % 60) %><div> -->
+        <div>
+            <audio controls=true src='/rec/<%= rec.referenceFileName %>' download controls />
+        </div>
+
+      <!-- </div> -->
+
       <hr />
 
     <% }) %>

@@ -68,7 +68,7 @@ app.use( bodyParser.urlencoded( { extended: false } ) )
 app.use( bodyParser.json() )
 
 // Serve the static 'public' direcotry
-app.use( express.static( 'public' ) )
+app.use( '/incorrigibles', express.static( 'public' ) )
 
 // Setup a virtual URL to serve the '../upload' directory
 // We need express.static to allow the files to be downloaded
