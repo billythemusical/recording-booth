@@ -332,9 +332,14 @@ button::-moz-focus-inner {
     width: 310px;
 }
 
-#submitButton {
+#submitButton, #uploadingButton {
     height: 100px;
     font-size: 21px;
+}
+
+/* Loading button from https://www.w3schools.com/howto/howto_css_loading_buttons.asp */
+#uploadingButton {
+  display: none;
 }
 
 /* MODAL - from https: //www.w3schools.com/howto/howto_css_modals.asp */
@@ -346,7 +351,7 @@ button::-moz-focus-inner {
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    padding-top: 1000px;
+    padding-top: 580px;
     width: 100%;  /* Full width */
     height: 100%;  /* Full height */
     overflow: auto;  /* Enable scroll if needed */
@@ -356,19 +361,19 @@ button::-moz-focus-inner {
 
 /* Modal Content/Box */
 .modal div {
-    background-color: #fefefe;
-    margin: 15% auto;  /* 15% from the top and centered */
-    /* padding: 20px; */
-    border: 1px solid #888;
-    width: 80%;  /* Could be more or less, depending on screen size */
+    background-color: #F5F5F5;
+    margin: 70px;  /* 15% from the top and centered */
+    padding: 46px;
+    /* border: 1px solid #888; */
+    width: 629px;  /* Could be more or less, depending on screen size */
 }
 
 
 
 #waitingToUpload {
-    display: block;
+    display: none;
 }
 
 #uploadUnsuccessful {
-    display: none;
+    display: block;
 }

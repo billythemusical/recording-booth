@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
 
+    <!-- Add W3 icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <div class="heading">
         <span id="title">Audio Submission Form</span>
         <svg id="logo">
@@ -141,7 +144,7 @@
                         <button enabled id="recordButton">RECORD</button>
                     </div>
                     <span class="half-buttons">
-                        <button disabled id="stopButton">STOP</button>
+                        <button disabled id="stopButton" onclick="window.scroll({top: 1680, behavior: 'smooth'});">STOP</button>
                         <button disabled id="redoButton">REDO</button>
                 </div>
 
@@ -165,6 +168,9 @@
 
                 <div class="section">
                     <button disabled id="submitButton">SUBMIT</button>
+                    <button id="uploadingButton">
+                      <i class="fa fa-refresh fa-spin"></i>&nbsp;UPLOADING
+                    </button>
                 </div>
 
 
@@ -173,7 +179,7 @@
                         We are upload your recording now. Please wait<span id="waiting"></span>
                     </div>
                     <div id="uploadUnsuccessful">We are sorry, but there was a problem uploading your recording!<br>
-                        Please hit <strong>REDO</strong>, click <strong>YES</strong>, and try again.
+                        Please wait a moment and hit RECORD to try again. If you continue to have issues, please alert the staff.
                     </div>
                 </div>
 

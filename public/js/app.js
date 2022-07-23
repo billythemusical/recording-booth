@@ -51,6 +51,7 @@ const thanksReset = document.getElementById( "thanksReset" )
 const recordButton = document.getElementById( "recordButton" )
 const stopButton = document.getElementById( "stopButton" )
 const submitButton = document.getElementById( "submitButton" )
+const uploadingButton = document.getElementById( "uploadingButton")
 const redoButton = document.getElementById( "redoButton" )
 const recordingsList = document.getElementById( "recordingsList" )
 const elapsedTime = document.getElementById( "elapsedTime" )
@@ -257,26 +258,27 @@ function saveRecordingLocally(filename, blob) {
 
 async function uploadRecording() {
 
+	const acceptedTerms = document.getElementById('acceptTerms').checked
+
 	// if recording...
 	if (!rec) {
 		alert('Please make a recording first.')
 		return
-	} else if (rec.recording) {
+	} else if (!acceptedTerms) {
+		alert( "Please accept our terms and conditions before confirming." )
+		return
+	}
+
+	if (rec.recording) {
 		rec.stop()
 		stopButton.disabled = true
 		recordButton.disabled = true
 		redoButton.disabled = false
 	}
 
-	const acceptedTerms = document.getElementById('acceptTerms').checked
-	console.log(acceptedTerms)
-	if ( !acceptedTerms ) {
-		alert( "Please accept our terms and conditions before confirming." )
-		return
-	}
-
 	// Tell the user we are uploading their recording, waiting...
-	showModal()
+	// showModal()
+	showUploadingButton()
 
 	// Save the recording locally before trying to upload
 	saveRecordingLocally(fileName, ourBlob)
@@ -284,7 +286,7 @@ async function uploadRecording() {
 
 	// Get the user input
 	let name = document.getElementById( 'name' ).value
-	name = name ? name : "blank" // hacks on hacks on hacks on...
+	name = name ? name : alert("Please provide a name. It does not have to be your real one.") // hacks on hacks on hacks on...
 	let email = document.getElementById( 'email' ).value
 	email = email ? email : "blank" // hacks on hacks on hacks on...
 	let phone = document.getElementById( 'phone' ).value
@@ -319,12 +321,24 @@ async function uploadRecording() {
 			body: fd,
 		})
 		.then( res => {
+
 			if (!res.ok) {
 				throw new ERROR(`HTTP Upload Error: ${response.status}`)
+				// waitingToUpload.style.display = "none"
+				// uploadUnsuccessful.style.display = "block"
+				showModal()
+				setTimeout(redoRecording, 8000)
 			}
 			return res
 		})
-		.catch( error => console.error(`Fetch problem: ${error.message}`))
+		.then ( )
+		.catch( error => {
+			console.error(`Fetch problem: ${error.message}`)
+			// waitingToUpload.style.display = "none"
+			// uploadUnsuccessful.style.display = "block"
+			showModal()
+			setTimeout(redoRecording, 8000)
+		})
 	}
 
 	const success = await Promise.all([ upload(), sleep(5000) ])
@@ -332,12 +346,12 @@ async function uploadRecording() {
 
 			const uploadResponse = promises[0]
 
-			if(!uploadResponse.ok) { // if the upload is unsuccessful
+			if(uploadResponse && !uploadResponse.ok ) { // if the upload is unsuccessful
 
-				waitingToUpload.style.display = "none"
-				uploadUnsuccessful.style.display = "block"
+				showModal()
+				return
 
-			} else { // if the upload was successful
+			} else if (uploadResponse.ok) { // if the upload was successful
 
 				clearTimeout(ellipsesTimeoutID)
 				console.log(`cleared timeout: ${ellipsesTimeoutID}`)
@@ -404,23 +418,37 @@ function redoRecording() {
 	recordingsList.innerHTML = ""
 	// Reset the elapsed time counter
 	elapsedTime.innerHTML = "0:00"
+	// Hide the upload button / show the submit button
+	hideUploadingButton()
 	// Hide the latest message
 	hideModal()
 
 }
 
+async function showUploadingButton() {
+	submitButton.style.display = "none"
+	uploadingButton.style.display = "block"
+	await sleep(5000)
+}
+
+function hideUploadingButton() {
+	uploadingButton.style.display = "none"
+	submitButton.style.display = "block"
+}
+
 async function showModal() {
 	await sleep(1000)
-	cancelElipses = waitingEllipses()
+	// cancelElipses = waitingEllipses()
 	modal.style.display = "block"
-	waitingToUpload.style.display = "block"
+	// waitingToUpload.style.display = "block"
+	hideUploadingButton()
 }
 
 function hideModal() {
 	clearTimeout(cancelElipses)
 	modal.style.display = "none"
-	uploadUnsuccessful.style.display = "none"
-	waitingToUpload.style.display = "block"
+	// uploadUnsuccessful.style.display = "none"
+	// waitingToUpload.style.display = "block"
 }
 
 function waitingEllipses() {
