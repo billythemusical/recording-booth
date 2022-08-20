@@ -286,7 +286,7 @@ async function uploadRecording() {
 
 	// Get the user input
 	let name = document.getElementById( 'name' ).value
-	name = name ? name : alert("Please provide a name. It does not have to be your real one.") // hacks on hacks on hacks on...
+	name = name ? name : "blank"
 	let email = document.getElementById( 'email' ).value
 	email = email ? email : "blank" // hacks on hacks on hacks on...
 	let phone = document.getElementById( 'phone' ).value
@@ -359,7 +359,7 @@ async function uploadRecording() {
 				showThanks()
 
 				// setTimeout(redoRecording, 10000)
-				setTimeout(reloadPage, 10000)
+				setTimeout(reloadPage, 15000)
 
 
 			}
