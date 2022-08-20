@@ -272,6 +272,10 @@ a {
     font-size: 14px;
 }
 
+.smallText {
+  font-size: 10px;
+}
+
 .section {
     padding-left: 70px;
     margin-top: 40px;
