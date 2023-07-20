@@ -1,0 +1,1276 @@
+
+
+/* Custom Fonts - No change */
+@font-face {
+    font-family: 'Flama-Basic';
+    src: url('fonts/Flama-Basic.otf');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Flama-Bold';
+    src: url('fonts/Flama-Bold.otf');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Flama-Light';
+    src: url('fonts/Flama-Light.otf');
+    font-weight: normal;
+}
+
+/* Mobile First Styles */
+
+body {
+    width: 100%;
+    max-width: 100%;
+    font-family: 'Flama-Basic', sans-serif;
+    letter-spacing: 0.48px;
+    line-height: 1.5;
+    font-size: 14px;
+    margin: 0;
+}
+
+footer {
+    margin-bottom: 2rem;  /* Using relative units */
+    width: 90%;
+}
+
+/* Other styles might go here, but we need to see more of the CSS to continue refactoring */
+
+/* Tablet */
+@media (min-width: 768px) {
+    /* Placeholder for tablet-specific styles */
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    /* Placeholder for desktop-specific styles */
+}
+
+
+
+/* #thanksReset */
+#thanksReset {
+    display: none;
+    padding-top: 2rem;    /* Using relative units */
+    font-size: 1.5rem;    /* Larger font size using relative units */
+    background-color: #F5F5F5;
+    padding-bottom: 2rem; /* Using relative units */
+}
+
+/* Paragraph */
+p {
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 1rem;  /* Adding some space below paragraphs */
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    #thanksReset {
+        padding-top: 3rem;    
+        font-size: 2rem;
+        padding-bottom: 3rem;
+    }
+
+    p {
+        margin-block-end: 1.2rem;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    #thanksReset {
+        padding-top: 4rem;    
+        font-size: 2.5rem;
+        padding-bottom: 4rem;
+    }
+
+    p {
+        margin-block-end: 1.5rem;
+    }
+}
+
+
+
+
+span  {
+display: inline-block;
+    padding: 0px;
+    margin: 0px;
+
+}
+
+
+
+input[type=text]  {
+width: 629rem;
+    /* margin-right: 69rem; */
+    padding-left: 20rem;
+    height: 50rem;
+    border: 0rem;
+    background-color: #F5F5F5;
+    font-family: 'Flama-Light', sans-serif;
+    font-size: 18rem;
+
+}
+
+
+
+/*
+A custom CSS checkbox with an inner shadow of 1px at 1px
+from the border with a 5pt blur.
+from https: //www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
+*/
+.checks  {
+display: block;
+    position: relative;
+    padding-left: 45rem;
+    margin-bottom: 12rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Flama-Basic', sans-serif;
+    letter-spacing: 0.48rem;
+    line-height: 28rem;
+    font-size: 14rem;
+
+}
+
+
+
+/* First, hide the native checkbox - from https: //moderncss.dev/pure-css-custom-checkbox-style/ */
+.checks input[type="checkbox"]  {
+-webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+
+}
+
+
+
+.checkmark  {
+position: absolute;
+    top: 5rem;
+    left: 0;
+    width: 25rem;
+    height: 25rem;
+    box-shadow: inset 1rem 1rem 5rem #30303080;
+    background-color: #F5F5F5;
+    transition: all 300ms ease-in-out;
+
+}
+
+
+
+/* When the checkbox is checked, add a blue background */
+.checks input:checked ~ .checkmark  {
+background-color: #ffffffcd;
+
+}
+
+
+
+.checkmark:after  {
+content: "";
+    position: absolute;
+    display: none;
+
+}
+
+
+
+.checks input:checked ~ .checkmark:after  {
+display: block;
+
+}
+
+
+
+.checks .checkmark:after  {
+content: '\2714';
+    font-size: 18px;
+    padding-left: 5px;
+
+}
+
+
+
+/*
+input[type=checkbox]  {
+-ms-transform: scale(2);
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    content: '\2714';
+    display: inline-block;
+
+}
+
+
+*/
+
+/* from https: //www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_radio */
+
+.radios  {
+display: block;
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+
+
+.radios input  {
+position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+}
+
+
+
+.radio  {
+position: absolute;
+    /* margin-right: 20rem; */
+    top: 0;
+    left: 0;
+    height: 25rem;
+    width: 25rem;
+    border-radius: 50%;
+    box-shadow: inset 1rem 1rem 5rem #30303080;
+    background-color: #F5F5F5;
+    transition: all 100ms ease-in-out;
+
+}
+
+
+
+.radios input:checked ~ .radio  {
+color: #ffffff;
+    background-color: #3F403F;
+
+}
+
+
+
+.radio:after  {
+content: "";
+    position: absolute;
+    display: none;
+
+}
+
+
+
+.radios input:checked ~ .radio:after  {
+display: block;
+
+}
+
+
+
+.radios .radio:after  {
+top: 9rem;
+    left: 9rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background: #ffffff;
+
+}
+
+
+
+a  {
+color: #DC6C26;
+    text-decoration: none;
+
+}
+
+
+
+.heading  {
+width: 100%;
+    height: 62rem;
+    font-size: 24rem;
+    font-family: 'Flama-Bold', sans-serif;
+    background-color: #ffffff;
+    padding-top: 38rem;
+    padding-left: 70rem;
+
+}
+
+
+
+#title  {
+/* position: fixed; */
+    /* padding-left: 70px; */
+    /* padding-top: 38px; */
+    color: #DC6C26;
+
+}
+
+
+
+#logo  {
+width: 249.1rem;
+    height: 25rem;
+    padding-left: 75rem;
+
+}
+
+
+
+#email  {
+width: 290rem;
+    float: left;
+    margin-bottom: 40rem;
+
+}
+
+
+
+#phone  {
+width: 290rem;
+    float: right;
+    margin-right: 49rem;
+    margin-bottom: 40rem;
+
+}
+
+
+
+
+
+.question  {
+font-size: 24px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.alignTop  {
+vertical-align: bottom;
+
+}
+
+
+
+.largeText  {
+font-size: 24px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.mediumText  {
+font-size: 18px;
+
+}
+
+
+
+.regularText  {
+font-size: 14px;
+
+}
+
+
+
+.section  {
+padding-left: 70px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+}
+
+
+
+.note  {
+font-size: 24rem;
+    line-height: 30rem;
+    background-color: #F5F5F5;
+    padding-left: 70rem;
+    padding-top: 40rem;
+    padding-bottom: 40rem;
+
+}
+
+
+
+.welcome  {
+width: 100%;
+
+}
+
+
+
+button  {
+width: 629rem;
+    height: 50rem;
+    border: 0rem;
+    font-family: 'Flama-Bold', sans-serif;
+    font-size: 14rem;
+    margin-bottom: 10rem;
+    margin-right: 5rem;
+    padding: 0rem;
+
+}
+
+
+
+button:enabled  {
+background-color: #DC6C26;
+    color: #ffffff;
+
+}
+
+
+
+button:disabled  {
+background-color: #303030;
+    color: #ffffff;
+    pointer-events: none;
+
+}
+
+
+
+button:active  {
+box-shadow: inset 1rem 0rem 3rem rgba(0, 0, 0, 0.2);
+    line-height: 3rem;
+
+}
+
+
+
+button::-moz-focus-inner  {
+border: 0;
+
+}
+
+
+
+.half-buttons  {
+display: inline;
+    text-align: center;
+    padding: 0px;
+
+}
+
+
+
+.half-buttons button  {
+width: 310rem;
+
+}
+
+
+
+#submitButton, #uploadingButton  {
+height: 100rem;
+    font-size: 21rem;
+
+}
+
+
+
+/* Loading button from https://www.w3schools.com/howto/howto_css_loading_buttons.asp */
+#uploadingButton  {
+display: none;
+
+}
+
+
+
+/* MODAL - from https: //www.w3schools.com/howto/howto_css_modals.asp */
+
+/* The Modal (background) */
+.modal  {
+display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    padding-top: 580rem;
+    width: 100%;  /* Full width */
+    height: 100%;  /* Full height */
+    overflow: auto;  /* Enable scroll if needed */
+    background-color: rgb(189, 189, 189); /* Fallback color */
+    background-color: #f5f5f5a2;  /* Black w/ opacity */
+
+}
+
+
+
+/* Modal Content/Box */
+.modal div  {
+background-color: #F5F5F5;
+    margin: 70rem;  /* 15% from the top and centered */
+    padding: 46rem;
+    /* border: 1rem solid #888; */
+    width: 629rem;  /* Could be more or less, depending on screen size */
+
+}
+
+
+
+
+
+#waitingToUpload  {
+display: none;
+
+}
+
+
+
+#uploadUnsuccessful  {
+display: block;
+
+}
+
+
+
+/* When the checkbox is checked, add a blue background */
+.checks input:checked ~ .checkmark  {
+background-color: #ffffffcd;
+
+}
+
+
+
+.checkmark:after  {
+content: "";
+    position: absolute;
+    display: none;
+
+}
+
+
+
+.checks input:checked ~ .checkmark:after  {
+display: block;
+
+}
+
+
+
+.checks .checkmark:after  {
+content: '\2714';
+    font-size: 18px;
+    padding-left: 5px;
+
+}
+
+
+
+/*
+input[type=checkbox]  {
+-ms-transform: scale(2);
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    content: '\2714';
+    display: inline-block;
+
+}
+
+
+*/
+
+/* from https: //www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_radio */
+
+.radios  {
+display: block;
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+
+
+.radios input  {
+position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+}
+
+
+
+.radio  {
+position: absolute;
+    /* margin-right: 20rem; */
+    top: 0;
+    left: 0;
+    height: 25rem;
+    width: 25rem;
+    border-radius: 50%;
+    box-shadow: inset 1rem 1rem 5rem #30303080;
+    background-color: #F5F5F5;
+    transition: all 100ms ease-in-out;
+
+}
+
+
+
+.radios input:checked ~ .radio  {
+color: #ffffff;
+    background-color: #3F403F;
+
+}
+
+
+
+.radio:after  {
+content: "";
+    position: absolute;
+    display: none;
+
+}
+
+
+
+.radios input:checked ~ .radio:after  {
+display: block;
+
+}
+
+
+
+.radios .radio:after  {
+top: 9rem;
+    left: 9rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background: #ffffff;
+
+}
+
+
+
+a  {
+color: #DC6C26;
+    text-decoration: none;
+
+}
+
+
+
+.heading  {
+width: 100%;
+    height: 62rem;
+    font-size: 24rem;
+    font-family: 'Flama-Bold', sans-serif;
+    background-color: #ffffff;
+    padding-top: 38rem;
+    padding-left: 70rem;
+
+}
+
+
+
+#title  {
+/* position: fixed; */
+    /* padding-left: 70px; */
+    /* padding-top: 38px; */
+    color: #DC6C26;
+
+}
+
+
+
+#logo  {
+width: 249.1rem;
+    height: 25rem;
+    padding-left: 75rem;
+
+}
+
+
+
+#email  {
+width: 290rem;
+    float: left;
+    margin-bottom: 40rem;
+
+}
+
+
+
+#phone  {
+width: 290rem;
+    float: right;
+    margin-right: 49rem;
+    margin-bottom: 40rem;
+
+}
+
+
+
+
+
+.question  {
+font-size: 24px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.alignTop  {
+vertical-align: bottom;
+
+}
+
+
+
+.largeText  {
+font-size: 24px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.mediumText  {
+font-size: 18px;
+
+}
+
+
+
+.regularText  {
+font-size: 14px;
+
+}
+
+
+
+.section  {
+padding-left: 70px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+}
+
+
+
+.note  {
+font-size: 24rem;
+    line-height: 30rem;
+    background-color: #F5F5F5;
+    padding-left: 70rem;
+    padding-top: 40rem;
+    padding-bottom: 40rem;
+
+}
+
+
+
+.welcome  {
+width: 100%;
+
+}
+
+
+
+button  {
+width: 629rem;
+    height: 50rem;
+    border: 0rem;
+    font-family: 'Flama-Bold', sans-serif;
+    font-size: 14rem;
+    margin-bottom: 10rem;
+    margin-right: 5rem;
+    padding: 0rem;
+
+}
+
+
+
+button:enabled  {
+background-color: #DC6C26;
+    color: #ffffff;
+
+}
+
+
+
+button:disabled  {
+background-color: #303030;
+    color: #ffffff;
+    pointer-events: none;
+
+}
+
+
+
+button:active  {
+box-shadow: inset 1rem 0rem 3rem rgba(0, 0, 0, 0.2);
+    line-height: 3rem;
+
+}
+
+
+
+button::-moz-focus-inner  {
+border: 0;
+
+}
+
+
+
+.half-buttons  {
+display: inline;
+    text-align: center;
+    padding: 0px;
+
+}
+
+
+
+.half-buttons button  {
+width: 310rem;
+
+}
+
+
+
+#submitButton, #uploadingButton  {
+height: 100rem;
+    font-size: 21rem;
+
+}
+
+
+
+/* Loading button from https://www.w3schools.com/howto/howto_css_loading_buttons.asp */
+#uploadingButton  {
+display: none;
+
+}
+
+
+
+/* MODAL - from https: //www.w3schools.com/howto/howto_css_modals.asp */
+
+/* The Modal (background) */
+.modal  {
+display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    padding-top: 580rem;
+    width: 100%;  /* Full width */
+    height: 100%;  /* Full height */
+    overflow: auto;  /* Enable scroll if needed */
+    background-color: rgb(189, 189, 189); /* Fallback color */
+    background-color: #f5f5f5a2;  /* Black w/ opacity */
+
+}
+
+
+
+/* Modal Content/Box */
+.modal div  {
+background-color: #F5F5F5;
+    margin: 70rem;  /* 15% from the top and centered */
+    padding: 46rem;
+    /* border: 1rem solid #888; */
+    width: 629rem;  /* Could be more or less, depending on screen size */
+
+}
+
+
+
+
+
+#waitingToUpload  {
+display: none;
+
+}
+
+
+
+#uploadUnsuccessful  {
+display: block;
+
+}
+
+
+*/
+
+/* from https: //www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_radio */
+
+.radios  {
+display: block;
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+
+
+.radios input  {
+position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+}
+
+
+
+.radio  {
+position: absolute;
+    /* margin-right: 20rem; */
+    top: 0;
+    left: 0;
+    height: 25rem;
+    width: 25rem;
+    border-radius: 50%;
+    box-shadow: inset 1rem 1rem 5rem #30303080;
+    background-color: #F5F5F5;
+    transition: all 100ms ease-in-out;
+
+}
+
+
+
+.radios input:checked ~ .radio  {
+color: #ffffff;
+    background-color: #3F403F;
+
+}
+
+
+
+.radio:after  {
+content: "";
+    position: absolute;
+    display: none;
+
+}
+
+
+
+.radios input:checked ~ .radio:after  {
+display: block;
+
+}
+
+
+
+.radios .radio:after  {
+top: 9rem;
+    left: 9rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background: #ffffff;
+
+}
+
+
+
+a  {
+color: #DC6C26;
+    text-decoration: none;
+
+}
+
+
+
+.heading  {
+width: 100%;
+    height: 62rem;
+    font-size: 24rem;
+    font-family: 'Flama-Bold', sans-serif;
+    background-color: #ffffff;
+    padding-top: 38rem;
+    padding-left: 70rem;
+
+}
+
+
+
+#title  {
+/* position: fixed; */
+    /* padding-left: 70px; */
+    /* padding-top: 38px; */
+    color: #DC6C26;
+
+}
+
+
+
+#logo  {
+width: 249.1rem;
+    height: 25rem;
+    padding-left: 75rem;
+
+}
+
+
+
+#email  {
+width: 290rem;
+    float: left;
+    margin-bottom: 40rem;
+
+}
+
+
+
+#phone  {
+width: 290rem;
+    float: right;
+    margin-right: 49rem;
+    margin-bottom: 40rem;
+
+}
+
+
+
+
+
+.question  {
+font-size: 24px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.alignTop  {
+vertical-align: bottom;
+
+}
+
+
+
+.largeText  {
+font-size: 24px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.mediumText  {
+font-size: 18px;
+
+}
+
+
+
+.regularText  {
+font-size: 14px;
+
+}
+
+
+
+.section  {
+padding-left: 70px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+}
+
+
+
+.note  {
+font-size: 24rem;
+    line-height: 30rem;
+    background-color: #F5F5F5;
+    padding-left: 70rem;
+    padding-top: 40rem;
+    padding-bottom: 40rem;
+
+}
+
+
+
+.welcome  {
+width: 100%;
+
+}
+
+
+
+button  {
+width: 629rem;
+    height: 50rem;
+    border: 0rem;
+    font-family: 'Flama-Bold', sans-serif;
+    font-size: 14rem;
+    margin-bottom: 10rem;
+    margin-right: 5rem;
+    padding: 0rem;
+
+}
+
+
+
+button:enabled  {
+background-color: #DC6C26;
+    color: #ffffff;
+
+}
+
+
+
+button:disabled  {
+background-color: #303030;
+    color: #ffffff;
+    pointer-events: none;
+
+}
+
+
+
+button:active  {
+box-shadow: inset 1rem 0rem 3rem rgba(0, 0, 0, 0.2);
+    line-height: 3rem;
+
+}
+
+
+
+button::-moz-focus-inner  {
+border: 0;
+
+}
+
+
+
+.half-buttons  {
+display: inline;
+    text-align: center;
+    padding: 0px;
+
+}
+
+
+
+.half-buttons button  {
+width: 310rem;
+
+}
+
+
+
+#submitButton, #uploadingButton  {
+height: 100rem;
+    font-size: 21rem;
+
+}
+
+
+
+/* Loading button from https://www.w3schools.com/howto/howto_css_loading_buttons.asp */
+#uploadingButton  {
+display: none;
+
+}
+
+
+
+/* MODAL - from https: //www.w3schools.com/howto/howto_css_modals.asp */
+
+/* The Modal (background) */
+.modal  {
+display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    padding-top: 580rem;
+    width: 100%;  /* Full width */
+    height: 100%;  /* Full height */
+    overflow: auto;  /* Enable scroll if needed */
+    background-color: rgb(189, 189, 189); /* Fallback color */
+    background-color: #f5f5f5a2;  /* Black w/ opacity */
+
+}
+
+
+
+/* Modal Content/Box */
+.modal div  {
+background-color: #F5F5F5;
+    margin: 70rem;  /* 15% from the top and centered */
+    padding: 46rem;
+    /* border: 1rem solid #888; */
+    width: 629rem;  /* Could be more or less, depending on screen size */
+
+}
+
+
+
+
+
+#waitingToUpload  {
+display: none;
+
+}
+
+
+
+#uploadUnsuccessful  {
+display: block;
+
+}
+
+/* Main content container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;  /* Center the content horizontally */
+    padding: 1rem;  /* Some padding on the sides for small screens */
+}
+
+/* 2. Ensuring form elements stack vertically on mobile */
+/* Input and their associated questions */
+label, input, select, textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;  /* Spacing between elements */
+}
+
+/* 3. Adjusting the width of main sections on mobile */
+section, .section {
+    width: 100%;
+}
+
+/* 4. Reducing larger text sizes on mobile */
+h1, h2, .large-text {
+    font-size: 1.2rem;  /* Adjust based on the specific elements/classes in the HTML */
+}

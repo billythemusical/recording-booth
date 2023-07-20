@@ -30,8 +30,8 @@ const certPath = process.env.CERT_PATH
 ejsLint();
 
 // Get the certs for HTTPS
-const key = fs.readFileSync( __dirname + keyPath );
-const cert = fs.readFileSync( __dirname + certPath );
+const key = fs.readFileSync( keyPath );
+const cert = fs.readFileSync( certPath );
 const certs = {
 	key: key,
 	cert: cert
