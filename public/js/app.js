@@ -284,7 +284,7 @@ async function uploadRecording() {
 
 	// fetch( 'http://127.0.0.1:3000/upload', { // for development
 	async function upload() {
-		return fetch('/upload', {
+		return fetch('/incorrigibles/upload', {
 			method: 'post',
 			// mode: 'no-cors', // when not working locally
 			body: fd,
