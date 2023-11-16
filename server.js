@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // Serve the static 'public' directory
-app.use('/incorrigibles', express.static('public'))
+app.use(express.static('public'))
 
 app.use('/rec', auth, express.static(__dirname + '/upload'),
 	// serveIndex(__dirname + '/upload', { view: "details" })
