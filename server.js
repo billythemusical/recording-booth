@@ -26,7 +26,7 @@ const port = process.env.PORT
 ejsLint();
 
 // For redirecting HTTP requests to HTTPS
-app.enable('trust proxy')
+// app.enable('trust proxy')
 // For logging requests
 app.use(logger)
 // app.use( ( req, res, next ) => {
